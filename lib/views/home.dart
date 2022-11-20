@@ -1,4 +1,6 @@
 import 'package:english_test/controller/category_controller.dart';
+import 'package:english_test/views/html_view.dart';
+import 'package:english_test/views/searchPage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,15 +42,40 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       drawer: Drawer(
         child: SafeArea(
           child: Column(
-            children: const [
+            children: [
               ListTile(
-                title: Text("Privacy Policy"),
-                leading: Icon(Icons.security_outlined),
+                onTap: (() {
+                  Get.back();
+                  Get.to(() => const SideBarView(title: "Privacy Policy"));
+                }),
+                title: Text(
+                  "Privacy Policy",
+                  style: GoogleFonts.poppins(fontSize: 20),
+                ),
+                leading: const Icon(Icons.security_outlined),
               ),
               ListTile(
-                title: Text("About Us"),
-                leading: Icon(Icons.people),
-              )
+                onTap: (() {
+                  Get.back();
+                  Get.to(() => const SideBarView(title: "Terms & Condition"));
+                }),
+                title: Text(
+                  "Terms & Condition",
+                  style: GoogleFonts.poppins(fontSize: 20),
+                ),
+                leading: const Icon(Icons.notes_sharp),
+              ),
+              ListTile(
+                onTap: (() {
+                  Get.back();
+                  Get.to(() => const SideBarView(title: "About us"));
+                }),
+                title: Text(
+                  "About us",
+                  style: GoogleFonts.poppins(fontSize: 20),
+                ),
+                leading: const Icon(Icons.info_outline),
+              ),
             ],
           ),
         ),
@@ -63,9 +90,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 children: [
                   SizedBox(
                       width: width * 0.75,
-                      height: height * 0.070,
-                      child: const TextField(
-                        decoration: InputDecoration(
+                      height: height * 0.060,
+                      child: TextField(
+                        readOnly: true,
+                        onTap: (() {
+                          Get.to(() => const SearchPage());
+                        }),
+                        decoration: const InputDecoration(
                           filled: true,
                           fillColor: Color(0xfff4f4fa),
                           prefixIcon: Icon(
@@ -87,11 +118,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   SizedBox(
                     width: width * 0.02,
                   ),
-                  const Icon(
-                    Icons.search,
-                    size: 40,
-                    color: Colors.black,
-                  )
+                  IconButton(
+                      onPressed: (() {
+                        Get.to(() => const SearchPage());
+                      }),
+                      icon: const Icon(
+                        Icons.search,
+                        size: 40,
+                        color: Colors.black,
+                      ))
                 ],
               ),
 //search widget finished

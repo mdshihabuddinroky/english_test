@@ -108,10 +108,19 @@ class TestScreen extends StatelessWidget {
                                           ),
                                         ),
                                         trailing: GestureDetector(
-                                          onTap: (() {
-                                            if (inputs["$index"] ==
-                                                controller
-                                                    .testlist[index].answer) {
+                                          onTap: (() async {
+                                            // if (inputs["$index"] ==
+                                            //     controller
+                                            //         .testlist[index].answer)
+                                            if (inputs["$index"] == null ||
+                                                inputs["$index"] == "") {
+                                              Get.snackbar("Fill the box",
+                                                  "Please type what you hear");
+                                            } else if (inputs["$index"]
+                                                .toString()
+                                                .contains(controller
+                                                    .testlist[index].answer
+                                                    .toString())) {
                                               Get.defaultDialog(
                                                   title: "Correct Answer",
                                                   titleStyle:
@@ -128,10 +137,32 @@ class TestScreen extends StatelessWidget {
                                                   titleStyle:
                                                       GoogleFonts.roboto(
                                                           fontSize: 25),
-                                                  content: SizedBox(
-                                                    height: Get.height * 0.30,
-                                                    child: Lottie.asset(
-                                                        "assets/wrong.json"),
+                                                  content: Column(
+                                                    children: [
+                                                      SizedBox(
+                                                        height:
+                                                            Get.height * 0.30,
+                                                        child: Lottie.asset(
+                                                            "assets/wrong.json",
+                                                            fit: BoxFit.cover),
+                                                      ).paddingAll(2),
+                                                      Text(
+                                                        "Try Again",
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                                fontSize: 20),
+                                                      ),
+                                                      SizedBox(
+                                                        height:
+                                                            Get.height * 0.10,
+                                                        child: Text(
+                                                          "Correct Answer: ${controller.testlist[index].answer.toString()}",
+                                                          style: GoogleFonts
+                                                              .roboto(
+                                                                  fontSize: 18),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ));
                                             }
                                           }),
@@ -164,65 +195,80 @@ class TestScreen extends StatelessWidget {
                                 for (int i = 0;
                                     i < controller.testlist.length;
                                     i++) {
-                                  if (inputs["$i"] ==
-                                      controller.testlist[i].answer) {
-                                    count = count + 1;
+                                  // if (inputs["$i"] ==
+                                  //     controller.testlist[i].answer)
+                                  if (inputs["$i"] == null ||
+                                      inputs["$i"] == "") {
+                                    Get.snackbar("Fill all box",
+                                        "Please type what you hear");
+                                    break;
+                                  } else {
+                                    if (inputs["$i"].toString().contains(
+                                        controller.testlist[i].answer
+                                            .toString())) {
+                                      Get.snackbar(
+                                          "title", inputs["$i"].toString());
+                                      count = count + 1;
+                                    }
                                   }
-                                }
 
-                                Get.defaultDialog(
-                                    title: "Your Result",
-                                    titleStyle:
-                                        GoogleFonts.roboto(fontSize: 25),
-                                    content: SizedBox(
-                                      height: Get.height * 0.55,
-                                      width: Get.width * 0.80,
-                                      child: Scaffold(
-                                        body: Center(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                "${controller.testlist.length}/$count",
-                                                style: GoogleFonts.ptSans(
-                                                    fontSize: 40,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Lottie.asset(
-                                                  fit: BoxFit.fill,
-                                                  "assets/congrats.json"),
-                                              SizedBox(
-                                                height: Get.height * 0.02,
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Get.to(() => const Home());
-                                                },
-                                                child: Container(
-                                                    width: Get.width * 0.70,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.redAccent,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    alignment: Alignment.center,
-                                                    height: Get.height * 0.05,
-                                                    child: Text(
-                                                      "Go to home",
-                                                      style:
-                                                          GoogleFonts.poppins(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize:
-                                                                  Get.height *
-                                                                      0.020),
-                                                    )),
-                                              ),
-                                            ],
+                                  Get.defaultDialog(
+                                      title: "Your Result",
+                                      titleStyle:
+                                          GoogleFonts.roboto(fontSize: 25),
+                                      content: SizedBox(
+                                        height: Get.height * 0.55,
+                                        width: Get.width * 0.80,
+                                        child: Scaffold(
+                                          body: Center(
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "${controller.testlist.length}/$count",
+                                                  style: GoogleFonts.ptSans(
+                                                      fontSize: 40,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Lottie.asset(
+                                                    fit: BoxFit.cover,
+                                                    "assets/congrats.json"),
+                                                SizedBox(
+                                                  height: Get.height * 0.02,
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Get.to(() => const Home());
+                                                  },
+                                                  child: Container(
+                                                      width: Get.width * 0.70,
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              Colors.redAccent,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10)),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      height: Get.height * 0.05,
+                                                      child: Text(
+                                                        "Go to home",
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    Get.height *
+                                                                        0.020),
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ));
+                                      ));
+                                }
                               }),
                               child: Container(
                                   decoration: BoxDecoration(
