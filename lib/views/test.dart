@@ -46,7 +46,7 @@ class TestScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           ListView.builder(
-                              itemCount: controller.testlist.length + 1,
+                              itemCount: controller.testlist.length,
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
@@ -56,17 +56,21 @@ class TestScreen extends StatelessWidget {
                                         leading: CircleAvatar(
                                             child: IconButton(
                                           onPressed: () async {
+                                            player.stop();
                                             if (status.value == true &&
                                                 current.value != index) {
                                               status(false);
-                                              player.stop();
+
+                                              current(index);
+                                              status(true);
+                                              await player.play(UrlSource(
+                                                  "${controller.testlist[index].audio}"));
+                                            } else {
+                                              current(index);
+                                              status(true);
+                                              await player.play(UrlSource(
+                                                  "${controller.testlist[index].audio}"));
                                             }
-                                            current(index);
-                                            status(true);
-                                            await player.play(UrlSource(
-                                                "${controller.testlist[index].audio}"));
-                                            // play(
-                                            //     true, controller.testlist[index].audio);
                                           },
                                           icon: Obx(() => Icon(
                                                 (current.value == index)
@@ -191,7 +195,7 @@ class TestScreen extends StatelessWidget {
                                 bottom: Get.width * 0.10),
                             child: GestureDetector(
                               onTap: (() {
-                                int count = 0;
+                                int count = 0, empty = 0;
                                 for (int i = 0;
                                     i < controller.testlist.length;
                                     i++) {
@@ -201,17 +205,17 @@ class TestScreen extends StatelessWidget {
                                       inputs["$i"] == "") {
                                     Get.snackbar("Fill all box",
                                         "Please type what you hear");
+                                    empty = empty + 1;
                                     break;
                                   } else {
                                     if (inputs["$i"].toString().contains(
                                         controller.testlist[i].answer
                                             .toString())) {
-                                      Get.snackbar(
-                                          "title", inputs["$i"].toString());
                                       count = count + 1;
                                     }
                                   }
-
+                                }
+                                if (empty == 0) {
                                   Get.defaultDialog(
                                       title: "Your Result",
                                       titleStyle:
