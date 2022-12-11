@@ -17,7 +17,10 @@ Widget categoryListWidget(String name, String icon) {
                 category: name,
               ));
         }),
-        leading: Image.network(icon),
+        leading: Image.network(
+          icon,
+          fit: BoxFit.fill,
+        ),
         title: Text(
           name,
           style: GoogleFonts.poppins(fontSize: 20),

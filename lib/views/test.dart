@@ -1,10 +1,12 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:english_test/controller/test_controller.dart';
-import 'package:english_test/views/home.dart';
+import 'package:english_test/widgets/wrong_answer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
+
+import '../widgets/correct_answer.dart';
+import '../widgets/result.dart';
 
 var status = false.obs;
 
@@ -34,7 +36,9 @@ class TestScreen extends StatelessWidget {
         ),
         body: Obx(
           () => (controller.isloading.value == true)
+              //loading
               ? const Center(child: CircularProgressIndicator())
+              //no data
               : (controller.testlist.isEmpty)
                   ? Center(
                       child: Text(
@@ -42,6 +46,7 @@ class TestScreen extends StatelessWidget {
                         style: GoogleFonts.poppins(fontSize: 20),
                       ),
                     )
+                  //list after loading
                   : SingleChildScrollView(
                       child: Column(
                         children: [
@@ -52,8 +57,17 @@ class TestScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: ListTile(
-                                        leading: CircleAvatar(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "${(index + 1).toString()}.",
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        CircleAvatar(
                                             child: IconButton(
                                           onPressed: () async {
                                             player.stop();
@@ -64,12 +78,14 @@ class TestScreen extends StatelessWidget {
                                               current(index);
                                               status(true);
                                               await player.play(UrlSource(
-                                                  "${controller.testlist[index].audio}"));
+                                                  controller
+                                                      .testlist[index].audio));
                                             } else {
                                               current(index);
                                               status(true);
                                               await player.play(UrlSource(
-                                                  "${controller.testlist[index].audio}"));
+                                                  controller
+                                                      .testlist[index].audio));
                                             }
                                           },
                                           icon: Obx(() => Icon(
@@ -81,8 +97,8 @@ class TestScreen extends StatelessWidget {
                                                 color: Colors.white,
                                               )),
                                         )),
-                                        title: SizedBox(
-                                          width: Get.width * 0.78,
+                                        SizedBox(
+                                          width: Get.width * 0.58,
                                           child: TextField(
                                             decoration: InputDecoration(
                                               filled: true,
@@ -111,63 +127,45 @@ class TestScreen extends StatelessWidget {
                                             }),
                                           ),
                                         ),
-                                        trailing: GestureDetector(
+                                        GestureDetector(
                                           onTap: (() async {
-                                            // if (inputs["$index"] ==
-                                            //     controller
-                                            //         .testlist[index].answer)
                                             if (inputs["$index"] == null ||
                                                 inputs["$index"] == "") {
                                               Get.snackbar("Fill the box",
                                                   "Please type what you hear");
-                                            } else if (inputs["$index"]
-                                                .toString()
-                                                .contains(controller
-                                                    .testlist[index].answer
-                                                    .toString())) {
-                                              Get.defaultDialog(
-                                                  title: "Correct Answer",
-                                                  titleStyle:
-                                                      GoogleFonts.roboto(
-                                                          fontSize: 25),
-                                                  content: SizedBox(
-                                                    height: Get.height * 0.30,
-                                                    child: Lottie.asset(
-                                                        "assets/correct.json"),
-                                                  ));
                                             } else {
-                                              Get.defaultDialog(
-                                                  title: "Wrong Answer",
-                                                  titleStyle:
-                                                      GoogleFonts.roboto(
-                                                          fontSize: 25),
-                                                  content: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                        height:
-                                                            Get.height * 0.30,
-                                                        child: Lottie.asset(
-                                                            "assets/wrong.json",
-                                                            fit: BoxFit.cover),
-                                                      ).paddingAll(2),
-                                                      Text(
-                                                        "Try Again",
-                                                        style:
-                                                            GoogleFonts.roboto(
-                                                                fontSize: 20),
-                                                      ),
-                                                      SizedBox(
-                                                        height:
-                                                            Get.height * 0.10,
-                                                        child: Text(
-                                                          "Correct Answer: ${controller.testlist[index].answer.toString()}",
-                                                          style: GoogleFonts
-                                                              .roboto(
-                                                                  fontSize: 18),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ));
+                                              //checking answer is case sensitive or not. if any=0 then asnwer isn't case sensitive
+                                              if (controller
+                                                      .testlist[index].any ==
+                                                  '0') {
+                                                //checking answer is wrong or right for case sensitive
+                                                if (inputs["$index"]
+                                                        .toString() ==
+                                                    controller
+                                                        .testlist[index].answer
+                                                        .toString()) {
+                                                  correctAnswer();
+                                                } else {
+                                                  wrongAnswer(controller
+                                                      .testlist[index].answer
+                                                      .toString());
+                                                }
+                                              } else {
+                                                //checking answer is wrong or right for case sensitive
+                                                if (inputs["$index"]
+                                                        .toString()
+                                                        .toLowerCase() ==
+                                                    controller
+                                                        .testlist[index].answer
+                                                        .toString()
+                                                        .toLowerCase()) {
+                                                  correctAnswer();
+                                                } else {
+                                                  wrongAnswer(controller
+                                                      .testlist[index].answer
+                                                      .toString());
+                                                }
+                                              }
                                             }
                                           }),
                                           child: Container(
@@ -186,7 +184,9 @@ class TestScreen extends StatelessWidget {
                                                     fontSize:
                                                         Get.height * 0.020),
                                               )),
-                                        )));
+                                        ),
+                                      ],
+                                    ));
                               }),
                           Padding(
                             padding: EdgeInsets.only(
@@ -208,70 +208,27 @@ class TestScreen extends StatelessWidget {
                                     empty = empty + 1;
                                     break;
                                   } else {
-                                    if (inputs["$i"].toString().contains(
-                                        controller.testlist[i].answer
-                                            .toString())) {
-                                      count = count + 1;
+                                    if (controller.testlist[i].any == '0') {
+                                      if (inputs["$i"].toString() ==
+                                          controller.testlist[i].answer
+                                              .toString()) {
+                                        count = count + 1;
+                                      }
+                                    } else {
+                                      if (inputs["$i"]
+                                              .toString()
+                                              .toLowerCase() ==
+                                          controller.testlist[i].answer
+                                              .toString()
+                                              .toLowerCase()) {
+                                        count = count + 1;
+                                      }
                                     }
                                   }
                                 }
                                 if (empty == 0) {
-                                  Get.defaultDialog(
-                                      title: "Your Result",
-                                      titleStyle:
-                                          GoogleFonts.roboto(fontSize: 25),
-                                      content: SizedBox(
-                                        height: Get.height * 0.55,
-                                        width: Get.width * 0.80,
-                                        child: Scaffold(
-                                          body: Center(
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  "${controller.testlist.length}/$count",
-                                                  style: GoogleFonts.ptSans(
-                                                      fontSize: 40,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Lottie.asset(
-                                                    fit: BoxFit.cover,
-                                                    "assets/congrats.json"),
-                                                SizedBox(
-                                                  height: Get.height * 0.02,
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    Get.to(() => const Home());
-                                                  },
-                                                  child: Container(
-                                                      width: Get.width * 0.70,
-                                                      decoration: BoxDecoration(
-                                                          color:
-                                                              Colors.redAccent,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: Get.height * 0.05,
-                                                      child: Text(
-                                                        "Go to home",
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize:
-                                                                    Get.height *
-                                                                        0.020),
-                                                      )),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ));
+                                  result(controller.testlist.length.toString(),
+                                      count.toString());
                                 }
                               }),
                               child: Container(

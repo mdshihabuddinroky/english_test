@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/categoryWidget.dart';
+import '../widgets/drawer.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -25,66 +26,36 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     // _tabController.animateTo(2);
   }
 
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     HomeController controller = Get.put(HomeController());
     return Scaffold(
+      key: _key,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
-        title: Text("I CAN SPELL",
-            style: GoogleFonts.poppins(fontSize: 22, color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      drawer: Drawer(
-        child: SafeArea(
+      drawer: customDrawer(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           child: Column(
             children: [
-              ListTile(
-                onTap: (() {
-                  Get.back();
-                  Get.to(() => const SideBarView(title: "Privacy Policy"));
-                }),
-                title: Text(
-                  "Privacy Policy",
-                  style: GoogleFonts.poppins(fontSize: 20),
-                ),
-                leading: const Icon(Icons.security_outlined),
+              //appBar
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                      onPressed: () => _key.currentState!.openDrawer(),
+                      icon: const Icon(Icons.menu)),
+                  SizedBox(
+                    width: Get.width * 0.10,
+                  ),
+                  Text("I CAN SPELL",
+                      style: GoogleFonts.poppins(
+                          fontSize: 22, color: Colors.black))
+                ],
               ),
-              ListTile(
-                onTap: (() {
-                  Get.back();
-                  Get.to(() => const SideBarView(title: "Terms & Condition"));
-                }),
-                title: Text(
-                  "Terms & Condition",
-                  style: GoogleFonts.poppins(fontSize: 20),
-                ),
-                leading: const Icon(Icons.notes_sharp),
-              ),
-              ListTile(
-                onTap: (() {
-                  Get.back();
-                  Get.to(() => const SideBarView(title: "About us"));
-                }),
-                title: Text(
-                  "About us",
-                  style: GoogleFonts.poppins(fontSize: 20),
-                ),
-                leading: const Icon(Icons.info_outline),
-              ),
-            ],
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(width * 0.05),
-          child: Column(
-            children: [
               //search widget start
               Row(
                 children: [
@@ -129,71 +100,83 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       ))
                 ],
               ),
-//search widget finished
-              //Search bar
-              SizedBox(
-                height: height * 0.01,
-              ),
-
-//tabbar start
-              TabBar(
-                  controller: _tabController,
-                  labelColor: Colors.black,
-                  indicatorColor: Colors.black45,
-                  labelStyle: GoogleFonts.aBeeZee(
-                    fontSize: 18,
-                  ),
-                  tabs: const [
-                    Tab(
-                      text: "Words",
+              //search widget finished
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: height * 0.01,
                     ),
-                    Tab(
-                      text: "Sentences",
-                    )
-                  ]),
-              SizedBox(
-                height: Get.height * 0.80,
-                child: TabBarView(controller: _tabController, children: [
-                  Obx(() => (controller.isloading_word.value)
-                      ? const Center(child: CircularProgressIndicator())
-                      : (controller.wordcategorylist.isEmpty)
-                          ? Center(
-                              child: Text(
-                                "No data found",
-                                style: GoogleFonts.poppins(fontSize: 20),
-                              ),
-                            )
-                          : ListView.builder(
-                              itemCount: controller.wordcategorylist.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return categoryListWidget(
-                                    controller.wordcategorylist[index].name,
-                                    controller.wordcategorylist[index].image);
-                              })),
-                  Obx(() => (controller.isloading_sentence.value)
-                      ? const Center(child: CircularProgressIndicator())
-                      : (controller.sentenceCategorylist.isEmpty)
-                          ? Center(
-                              child: Text(
-                                "No data found",
-                                style: GoogleFonts.poppins(fontSize: 20),
-                              ),
-                            )
-                          : ListView.builder(
-                              itemCount: controller.sentenceCategorylist.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return categoryListWidget(
-                                    controller.sentenceCategorylist[index].name,
-                                    controller
-                                        .sentenceCategorylist[index].image);
-                              })),
-                ]),
+
+                    //tabbar start
+                    TabBar(
+                        controller: _tabController,
+                        labelColor: Colors.black,
+                        indicatorColor: Colors.black45,
+                        labelStyle: GoogleFonts.aBeeZee(
+                          fontSize: 18,
+                        ),
+                        tabs: const [
+                          Tab(
+                            text: "Words",
+                          ),
+                          Tab(
+                            text: "Sentences",
+                          )
+                        ]),
+                    SizedBox(
+                      height: Get.height * 0.80,
+                      child: TabBarView(controller: _tabController, children: [
+                        Obx(() => (controller.isloading_word.value)
+                            ? const Center(child: CircularProgressIndicator())
+                            : (controller.wordcategorylist.isEmpty)
+                                ? Center(
+                                    child: Text(
+                                      "No data found",
+                                      style: GoogleFonts.poppins(fontSize: 20),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const ClampingScrollPhysics(),
+                                    itemCount:
+                                        controller.wordcategorylist.length,
+                                    itemBuilder: (context, index) {
+                                      return categoryListWidget(
+                                          controller
+                                              .wordcategorylist[index].name,
+                                          controller
+                                              .wordcategorylist[index].image);
+                                    }).paddingOnly(bottom: Get.height * 0.05)),
+                        Obx(() => (controller.isloading_sentence.value)
+                            ? const Center(child: CircularProgressIndicator())
+                            : (controller.sentenceCategorylist.isEmpty)
+                                ? Center(
+                                    child: Text(
+                                      "No data found",
+                                      style: GoogleFonts.poppins(fontSize: 20),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const ClampingScrollPhysics(),
+                                    itemCount:
+                                        controller.sentenceCategorylist.length,
+                                    itemBuilder: (context, index) {
+                                      return categoryListWidget(
+                                          controller
+                                              .sentenceCategorylist[index].name,
+                                          controller.sentenceCategorylist[index]
+                                              .image);
+                                    }).paddingOnly(bottom: Get.height * 0.05)),
+                      ]),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-        ),
+        ).paddingOnly(left: width * 0.05, right: width * 0.05),
       ),
     );
   }
