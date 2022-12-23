@@ -1,13 +1,11 @@
 import 'package:english_test/controller/category_controller.dart';
-import 'package:english_test/views/html_view.dart';
 import 'package:english_test/views/searchPage.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../widgets/categoryWidget.dart';
 import '../widgets/drawer.dart';
+import '../widgets/no_data.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -55,7 +53,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       style: GoogleFonts.poppins(
                           fontSize: 22, color: Colors.black))
                 ],
-              ),
+              ).paddingOnly(top: 5),
               //search widget start
               Row(
                 children: [
@@ -130,12 +128,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         Obx(() => (controller.isloading_word.value)
                             ? const Center(child: CircularProgressIndicator())
                             : (controller.wordcategorylist.isEmpty)
-                                ? Center(
-                                    child: Text(
-                                      "No data found",
-                                      style: GoogleFonts.poppins(fontSize: 20),
-                                    ),
-                                  )
+                                ? noData()
                                 : ListView.builder(
                                     shrinkWrap: true,
                                     physics: const ClampingScrollPhysics(),

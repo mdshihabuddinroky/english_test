@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../widgets/no_data.dart';
+
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
@@ -68,12 +70,7 @@ class SearchPage extends StatelessWidget {
                     //search but no data
                     (controller.isloading.value == false &&
                             controller.searchlist.isEmpty)
-                        ? Center(
-                            child: Text(
-                              "No data found",
-                              style: GoogleFonts.poppins(fontSize: 20),
-                            ),
-                          )
+                        ? noData()
                         :
                         //search result
                         ListView.builder(

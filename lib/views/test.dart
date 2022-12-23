@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/correct_answer.dart';
+import '../widgets/no_data.dart';
 import '../widgets/result.dart';
 
 var status = false.obs;
@@ -40,12 +41,7 @@ class TestScreen extends StatelessWidget {
               ? const Center(child: CircularProgressIndicator())
               //no data
               : (controller.testlist.isEmpty)
-                  ? Center(
-                      child: Text(
-                        "No data found",
-                        style: GoogleFonts.poppins(fontSize: 20),
-                      ),
-                    )
+                  ? noData()
                   //list after loading
                   : SingleChildScrollView(
                       child: Column(

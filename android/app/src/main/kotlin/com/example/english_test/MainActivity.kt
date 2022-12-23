@@ -1,4 +1,4 @@
-package com.example.english_test
+package com.icanspell.app
 
 import io.flutter.embedding.android.FlutterActivity
 

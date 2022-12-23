@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "366690138320",
+    "project_id": "ispell-43edc",
+    "storage_bucket": "ispell-43edc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366690138320:android:3e06e9602b52cef4f4c6d5",
+        "android_client_info": {
+          "package_name": "com.icanspell.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366690138320-fssnmgodvs43rjmrvnn45fr0stnrkjt9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrgFy2U2tWUl1ls5lxNzFnCmCUbHm_vRE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366690138320-fssnmgodvs43rjmrvnn45fr0stnrkjt9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
