@@ -1,11 +1,11 @@
 {
-    "name": "english_test",
-    "short_name": "english_test",
+    "name": "ICANSPELL",
+    "short_name": "ICANSPELL",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "The description of the web app and PWA",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

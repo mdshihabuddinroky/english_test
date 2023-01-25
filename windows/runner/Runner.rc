@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "english_test" "\0"
+            VALUE "CompanyName", "DEVDEEN" "\0"
+            VALUE "FileDescription", "ICANSPELL" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "english_test" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "english_test.exe" "\0"
-            VALUE "ProductName", "english_test" "\0"
+            VALUE "InternalName", "ICANSPELL" "\0"
+            VALUE "LegalCopyright", "The legal copyright of the windows app" "\0"
+            VALUE "OriginalFilename", "ICANSPELL-win64.exe" "\0"
+            VALUE "ProductName", "ICANSPELL" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

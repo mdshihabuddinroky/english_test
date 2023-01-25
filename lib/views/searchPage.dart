@@ -1,5 +1,5 @@
 import 'package:english_test/controller/searchController.dart';
-import 'package:english_test/views/test.dart';
+import 'package:english_test/views/testScreen/test.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,8 +11,11 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Create a TextEditingController for the search field
     final TextEditingController txtcontroller = TextEditingController();
+    // Create a SearchController and register it in the dependency injection system
     final SearchController controller = Get.put(SearchController());
+
     return Scaffold(
         appBar: AppBar(
             elevation: 0,
@@ -21,11 +24,13 @@ class SearchPage extends StatelessWidget {
             title: SizedBox(
               height: Get.height * 0.06,
               child: TextField(
+                // Call fetchProducts on the controller with the search field value after a delay of 500 milliseconds
                 onChanged: ((value) {
                   Future.delayed(const Duration(milliseconds: 500), () {
                     controller.fetchProducts(value);
                   });
                 }),
+                // Use the TextEditingController for the search field
                 controller: txtcontroller,
                 textAlign: TextAlign.left,
                 decoration: InputDecoration(
@@ -50,43 +55,44 @@ class SearchPage extends StatelessWidget {
               ),
             )),
         body: Obx(() =>
-            //loading
+            // If the search is still loading, display a loading spinner
             (controller.isloading.value)
                 ? const Center(
                     child: CircularProgressIndicator(color: Colors.black),
                   )
-                :
-                //not search yet
-                (controller.isloading.value == false &&
+                // If the search is finished and there is no search text, display a message
+                : (controller.isloading.value == false &&
                         controller.searchlist.isEmpty &&
                         txtcontroller.text.isEmpty)
                     ? Center(
                         child: Text(
-                          "",
+                          "Enter a search term to see results",
                           style: GoogleFonts.poppins(fontSize: 20),
                         ),
                       )
-                    :
-                    //search but no data
-                    (controller.isloading.value == false &&
+                    // If the search is finished and there are no results, display a "No data" message
+                    : (controller.isloading.value == false &&
                             controller.searchlist.isEmpty)
                         ? noData()
-                        :
-                        //search result
-                        ListView.builder(
+                        // If the search is finished and there are results, display the results in a list
+                        : ListView.builder(
                             itemCount: controller.searchlist.length,
                             itemBuilder: ((context, index) {
                               return ListTile(
+                                // Navigate to the TestScreen when an item is tapped with the item
                                 onTap: (() => Get.to(() => TestScreen(
                                       category: controller
                                           .searchlist[index].category
                                           .toString(),
                                     ))),
+                                //search icon
                                 leading: const Icon(Icons.search),
+                                //search result item
                                 title: Text(
                                   controller.searchlist[index].category
                                       .toString(),
                                 ),
+                                //icon
                                 trailing: const Icon(
                                     Icons.subdirectory_arrow_right_outlined),
                               );

@@ -3,30 +3,56 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Define the SideBarView widget
 class SideBarView extends StatelessWidget {
-  const SideBarView({super.key, this.title});
+  // Constructor for the SideBarView widget
+  const SideBarView({
+    // Key for the widget
+    super.key,
+    // Required title for the app bar
+    this.title,
+  });
+
+  // Private member for storing the title
   final title;
+
+  // Build method for the widget
   @override
   Widget build(BuildContext context) {
+    // Return a Scaffold widget with an app bar and a body
     return Scaffold(
+      // Set the app bar for the Scaffold
       appBar: AppBar(
+        // Set the icon theme to use black icons
         iconTheme: const IconThemeData(color: Colors.black),
+        // Set the app bar's elevation to 0
         elevation: 0,
+        // Set the background color of the app bar to white
         backgroundColor: Colors.white,
+        // Center the title in the app bar
         centerTitle: true,
+        // Set the title of the app bar to be the title passed to the constructor
         title: Text(
           title,
+          // Use the Roboto font for the title text with a font size of 20
+          // and set the color to black
           style: GoogleFonts.roboto(fontSize: 20, color: Colors.black),
         ),
       ),
+      // Set the body of the Scaffold to a SingleChildScrollView widget
+      // with a child set to an HtmlWidget
       body: SingleChildScrollView(
           child: HtmlWidget(
+        // Set the HTML content of the HtmlWidget to the value in the "html" map
+        // with the key set to the title passed to the constructor
         html[title]!,
+        // Add padding of 10 on all sides to the HtmlWidget
       ).paddingAll(10)),
     );
   }
 }
 
+// sidebar privacy policy terms & condtion are stored here
 var html = {
   "Privacy Policy": """<p><strong>Privacy Policy</strong></p>
 
