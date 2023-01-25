@@ -11,6 +11,7 @@ class TestController extends GetxController {
   var page = 1.obs;
   var isloading = true.obs;
   var pageindex = 0.obs;
+  var buttoncolor = {}.obs;
 
   TestController(this.category);
   @override
@@ -29,7 +30,6 @@ class TestController extends GetxController {
 
     try {
       if (response.statusCode == 200) {
- 
         isloading(false);
         var testList = testModelFromJson(response.body);
 

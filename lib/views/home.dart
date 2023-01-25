@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/categoryWidget.dart';
 import '../widgets/drawer.dart';
+import '../widgets/loading.dart';
 import '../widgets/no_data.dart';
 
 class Home extends StatefulWidget {
@@ -66,6 +67,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           Get.to(() => const SearchPage());
                         }),
                         decoration: const InputDecoration(
+                          labelText: "Search..",
                           filled: true,
                           fillColor: Color(0xfff4f4fa),
                           prefixIcon: Icon(
@@ -126,7 +128,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       height: Get.height * 0.80,
                       child: TabBarView(controller: _tabController, children: [
                         Obx(() => (controller.isloading_word.value)
-                            ? const Center(child: CircularProgressIndicator())
+                            ? loading()
                             : (controller.wordcategorylist.isEmpty)
                                 ? noData()
                                 : ListView.builder(
@@ -142,7 +144,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                               .wordcategorylist[index].image);
                                     }).paddingOnly(bottom: Get.height * 0.05)),
                         Obx(() => (controller.isloading_sentence.value)
-                            ? const Center(child: CircularProgressIndicator())
+                            ? loading()
                             : (controller.sentenceCategorylist.isEmpty)
                                 ? Center(
                                     child: Text(

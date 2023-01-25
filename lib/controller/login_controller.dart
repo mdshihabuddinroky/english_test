@@ -3,13 +3,15 @@
 import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../views/home.dart';
 
 class LoginController extends GetxController {
   var isloading = false.obs;
 
-  void registerNow(String email, String pass) async {
+  void loginNow(String email, String pass) async {
+    final prefs = await SharedPreferences.getInstance();
     isloading(true);
 
     var client = http.Client();
@@ -19,6 +21,7 @@ class LoginController extends GetxController {
 
     try {
       if (response.statusCode == 200) {
+        prefs.setBool('islogin', true);
         isloading(false);
         Get.offAll(() => const Home());
       } else if (response.statusCode == 403) {

@@ -55,7 +55,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCrgFy2U2tWUl1ls5lxNzFnCmCUbHm_vRE',
-    appId: '1:366690138320:android:3e06e9602b52cef4f4c6d5',
+    appId: '1:366690138320:android:810bfbb045400ee3f4c6d5',
     messagingSenderId: '366690138320',
     projectId: 'ispell-43edc',
     storageBucket: 'ispell-43edc.appspot.com',
@@ -67,6 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '366690138320',
     projectId: 'ispell-43edc',
     storageBucket: 'ispell-43edc.appspot.com',
+    androidClientId: '366690138320-hvvhuljuoqv6iupa3t0tkuu1qi9f6519.apps.googleusercontent.com',
     iosClientId: '366690138320-2vmfttfms9tqnot1iqbp7kjrns9h8uo4.apps.googleusercontent.com',
     iosBundleId: 'com.example.englishTest.OneSignalNotificationServiceExtension',
   );
@@ -77,6 +78,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '366690138320',
     projectId: 'ispell-43edc',
     storageBucket: 'ispell-43edc.appspot.com',
+    androidClientId: '366690138320-hvvhuljuoqv6iupa3t0tkuu1qi9f6519.apps.googleusercontent.com',
     iosClientId: '366690138320-l6kamagkpq3pm6gk132hli54506hc79a.apps.googleusercontent.com',
     iosBundleId: 'com.example.englishTest',
   );

@@ -9,6 +9,50 @@
       "client_info": {
         "mobilesdk_app_id": "1:366690138320:android:3e06e9602b52cef4f4c6d5",
         "android_client_info": {
+          "package_name": "com.example.english_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366690138320-hvvhuljuoqv6iupa3t0tkuu1qi9f6519.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.english_test",
+            "certificate_hash": "e65bdace12d8320b441a6374101442d36131349c"
+          }
+        },
+        {
+          "client_id": "366690138320-fssnmgodvs43rjmrvnn45fr0stnrkjt9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrgFy2U2tWUl1ls5lxNzFnCmCUbHm_vRE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366690138320-fssnmgodvs43rjmrvnn45fr0stnrkjt9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "366690138320-2vmfttfms9tqnot1iqbp7kjrns9h8uo4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.englishTest.OneSignalNotificationServiceExtension"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366690138320:android:810bfbb045400ee3f4c6d5",
+        "android_client_info": {
           "package_name": "com.icanspell.app"
         }
       },
@@ -29,6 +73,13 @@
             {
               "client_id": "366690138320-fssnmgodvs43rjmrvnn45fr0stnrkjt9.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "366690138320-2vmfttfms9tqnot1iqbp7kjrns9h8uo4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.englishTest.OneSignalNotificationServiceExtension"
+              }
             }
           ]
         }

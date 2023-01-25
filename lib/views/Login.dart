@@ -1,18 +1,23 @@
 import 'package:english_test/controller/login_controller.dart';
 import 'package:english_test/views/signUp.dart';
 import 'package:english_test/widgets/TextBox.dart';
+import 'package:english_test/widgets/loading.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../controller/social_auth_controller.dart';
 import '../widgets/HeaderText.dart';
 import '../widgets/customButton.dart';
+import '../widgets/skip_button.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SocialController authController = Get.put(SocialController());
     LoginController controller = Get.put(LoginController());
 
     final _formKey = GlobalKey<FormState>();
@@ -27,7 +32,12 @@ class Login extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                headerText("Sign In"),
+                Stack(
+                  children: [
+                    headerText("Sign In"),
+                    Positioned(right: 20, top: 50, child: skip())
+                  ],
+                ),
                 Form(
                     key: _formKey,
                     child: Column(
@@ -68,15 +78,33 @@ class Login extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.facebook_rounded,
-                      color: Colors.blue,
-                      size: Get.width * 0.10,
-                    ).paddingAll(10),
-                    Image.asset(
-                      'assets/google.png',
-                      height: Get.width * 0.09,
-                      width: Get.width * 0.09,
+                    GestureDetector(
+                      onTap: () async {
+                        await authController.signInWithFacebook();
+                        if (authController.name.value != "") {
+                          controller.loginNow(
+                              authController.email.value, "null");
+                        }
+                      },
+                      child: Icon(
+                        Icons.facebook_rounded,
+                        color: Colors.blue,
+                        size: Get.width * 0.10,
+                      ).paddingAll(10),
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        await authController.signInWithGoogle();
+                        if (authController.name.value != "") {
+                          controller.loginNow(
+                              authController.email.value, "null");
+                        }
+                      },
+                      child: Image.asset(
+                        'assets/google.png',
+                        height: Get.width * 0.09,
+                        width: Get.width * 0.09,
+                      ),
                     )
                   ],
                 ),
@@ -86,7 +114,7 @@ class Login extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate() == true) {
-                      controller.registerNow(emailBox.text, passwordBox.text);
+                      controller.loginNow(emailBox.text, passwordBox.text);
                     }
                   },
                   child: customButton("Login Now"),
@@ -94,9 +122,8 @@ class Login extends StatelessWidget {
               ],
             ),
           ),
-          Obx(() => Visibility(
-              visible: controller.isloading.value,
-              child: const CircularProgressIndicator()))
+          Obx(() =>
+              Visibility(visible: controller.isloading.value, child: loading()))
         ],
       ),
     );

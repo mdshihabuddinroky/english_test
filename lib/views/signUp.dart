@@ -1,15 +1,19 @@
+import 'package:english_test/color.dart';
 import 'package:english_test/controller/register_controller.dart';
 import 'package:english_test/views/Login.dart';
-import 'package:english_test/views/home.dart';
+
 import 'package:english_test/widgets/customButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:progress_loading_button/progress_loading_button.dart';
 
 import '../controller/social_auth_controller.dart';
 import '../widgets/HeaderText.dart';
 import '../widgets/TextBox.dart';
+import '../widgets/loading.dart';
+import '../widgets/skip_button.dart';
 
 class SingUp extends StatelessWidget {
   const SingUp({super.key});
@@ -31,7 +35,12 @@ class SingUp extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  headerText("Sign Up"),
+                  Stack(
+                    children: [
+                      headerText("Sign Up"),
+                      Positioned(right: 20, top: 50, child: skip())
+                    ],
+                  ),
                   Form(
                       key: _formKey,
                       child: Column(
@@ -76,19 +85,27 @@ class SingUp extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.facebook_rounded,
-                        color: Colors.blue,
-                        size: Get.width * 0.10,
-                      ).paddingAll(10),
+                      GestureDetector(
+                        onTap: () async {
+                          await authController.signInWithFacebook();
+                          if (authController.name.value != "") {
+                            controller.registerNow(authController.name.value,
+                                authController.email.value, "null");
+                          }
+                        },
+                        child: Icon(
+                          Icons.facebook_rounded,
+                          color: Colors.blue,
+                          size: Get.width * 0.10,
+                        ).paddingAll(10),
+                      ),
                       GestureDetector(
                         onTap: () async {
                           await authController.signInWithGoogle();
-
-                          var name =
-                              FirebaseAuth.instance.currentUser!.displayName;
-                          var email = FirebaseAuth.instance.currentUser!.email;
-                          Get.snackbar(name!, email!);
+                          if (authController.name.value != "") {
+                            controller.registerNow(authController.name.value,
+                                authController.email.value, "null");
+                          }
                         },
                         child: Image.asset(
                           'assets/google.png',
@@ -114,8 +131,7 @@ class SingUp extends StatelessWidget {
               ),
             ),
             Obx(() => Visibility(
-                visible: controller.isloading.value,
-                child: const CircularProgressIndicator()))
+                visible: controller.isloading.value, child: loading()))
           ],
         ));
   }

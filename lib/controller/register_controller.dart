@@ -3,6 +3,7 @@
 import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../views/home.dart';
 
@@ -11,7 +12,8 @@ class RegisterController extends GetxController {
 
   void registerNow(String name, String email, String pass) async {
     isloading(true);
-
+    final prefs = await SharedPreferences.getInstance();
+    //islogin = prefs.getBool("islogin") ?? false;
     var client = http.Client();
 
     var response = await client.get(Uri.parse(
@@ -21,6 +23,7 @@ class RegisterController extends GetxController {
       if (response.statusCode == 200) {
         isloading(false);
         Get.offAll(() => const Home());
+        prefs.setBool('islogin', true);
       } else if (response.statusCode == 403) {
         isloading(false);
         Get.snackbar("Failed", "This email is already registered");

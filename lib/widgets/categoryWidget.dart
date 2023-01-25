@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,9 +18,16 @@ Widget categoryListWidget(String name, String icon) {
                 category: name,
               ));
         }),
-        leading: Image.network(
-          icon,
+        leading: CachedNetworkImage(
+          imageUrl: icon,
+          width: 100,
           fit: BoxFit.fill,
+          placeholder: (context, url) => Container(
+            color: const Color(0xffbaedfc),
+            width: 100,
+            height: 60,
+          ),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
         title: Text(
           name,

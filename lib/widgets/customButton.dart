@@ -10,7 +10,8 @@ Widget customButton(String text) {
     child: Container(
         width: Get.width * 0.70,
         decoration: BoxDecoration(
-            color: Colors.redAccent, borderRadius: BorderRadius.circular(10)),
+            color: const Color(0xff003eff),
+            borderRadius: BorderRadius.circular(10)),
         alignment: Alignment.center,
         height: Get.height * 0.06,
         child: Text(
