@@ -2,10 +2,29 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class SocialController extends GetxController {
   var name = "".obs;
   var email = "".obs;
+  signInwithApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      if (credential.isBlank == false) {
+        name(credential.givenName);
+        email(credential.email);
+      }
+      print(credential);
+    } catch (e) {
+      e.printError();
+    }
+  }
+
   signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser =

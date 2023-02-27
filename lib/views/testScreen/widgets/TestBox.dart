@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../controller/test_controller.dart';
+
 //widget screen textfield custom widget
 class TestBox extends StatelessWidget {
   const TestBox({super.key, required this.inputs, required this.index});
@@ -15,6 +17,7 @@ class TestBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TestController controller = Get.find();
     return SizedBox(
       width: Get.width * 0.58,
       child: TextField(
@@ -45,8 +48,12 @@ class TestBox extends StatelessWidget {
 // Set the onChanged event for the TextField
         onChanged: ((value) {
 // Assign the value to the RxMap at the index
-          inputs["$index"] = value;
+          inputs["$index"] = value.trim();
         }),
+        onTap: () {
+          controller.currentTest(index);
+          print(controller.currentTest);
+        },
       ),
     );
   }

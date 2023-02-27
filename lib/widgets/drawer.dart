@@ -67,7 +67,7 @@ Widget customDrawer() {
             onTap: (() {
               Get.back();
               Share.share(
-                  'Download ICANSPELL app to learn englisn in anew way. Install now from Playstore. ');
+                  'Download ICANSPELL app to learn englisn in anew way. Install now from Playstore. https://play.google.com/store/apps/details?id=com.icanspell.app');
             }),
             title: Text(
               "Share App",

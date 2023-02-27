@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "DEVDEEN" "\0"
-            VALUE "FileDescription", "ICANSPELL" "\0"
+            VALUE "FileDescription", "Spellicious" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "ICANSPELL" "\0"
+            VALUE "InternalName", "Spellicious" "\0"
             VALUE "LegalCopyright", "The legal copyright of the windows app" "\0"
             VALUE "OriginalFilename", "ICANSPELL-win64.exe" "\0"
-            VALUE "ProductName", "ICANSPELL" "\0"
+            VALUE "ProductName", "Spellicious" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

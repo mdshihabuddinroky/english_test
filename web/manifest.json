@@ -1,6 +1,6 @@
 {
-    "name": "ICANSPELL",
-    "short_name": "ICANSPELL",
+    "name": "Spellicious",
+    "short_name": "Spellicious",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -43,7 +43,8 @@ class TestScreen extends StatelessWidget {
           centerTitle: true,
           title: Text(
             category,
-            style: GoogleFonts.roboto(fontSize: 20, color: Colors.black),
+            style: GoogleFonts.poppins(
+                fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
         body: Obx(
@@ -66,7 +67,11 @@ class TestScreen extends StatelessWidget {
                                 // Set button color for each question
                                 controller.buttoncolor["$index"] =
                                     Appcolor.primary;
-                                return Padding(
+                                return Obx(() => Container(
+                                    color:
+                                        (controller.currentTest.value == index)
+                                            ? Color.fromARGB(65, 3, 168, 244)
+                                            : Colors.transparent,
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       mainAxisAlignment:
@@ -86,16 +91,22 @@ class TestScreen extends StatelessWidget {
                                             player: player,
                                             current: current,
                                             controller: controller),
-                                        TestBox(
-                                            // This widget displays a textbox for entering what user heared.
-                                            // It takes in a list of inputs and an index.
-                                            inputs: inputs,
-                                            index: index),
+                                        GestureDetector(
+                                          onTap: () {
+                                            controller.currentTest(index);
+                                            print(controller.currentTest);
+                                          },
+                                          child: TestBox(
+                                              // This widget displays a textbox for entering what user heared.
+                                              // It takes in a list of inputs and an index.
+                                              inputs: inputs,
+                                              index: index),
+                                        ),
                                         //check button widget
                                         Obx(() => GestureDetector(
                                               // This widget was for check button that listens for a tap event and executes the code inside the onTap callback.
                                               onTap: (() async {
-                                                if (inputs["$index"] == null ||
+                                                if (inputs[""] == null ||
                                                     inputs["$index"] == "") {
                                                   // If the input field is empty, display a snackbar message asking the user to fill in the field.
                                                   Get.snackbar("Fill the box",
@@ -176,7 +187,7 @@ class TestScreen extends StatelessWidget {
                                                   )),
                                             )),
                                       ],
-                                    ));
+                                    )));
                               }),
                           //whole test page final check button
                           Padding(

@@ -1,29 +1,29 @@
 package_rename_config:
   android:
-    app_name: ICANSPELL
+    app_name: Spellicious
     package_name: com.icanspell.app
 
   ios:
-    app_name: ICANSPELL
+    app_name: Spellicious
     bundle_name: com.icanspell.app
     package_name: com.icanspell.app
 
   linux:
-    app_name: ICANSPELL
+    app_name: Spellicious
     package_name: com.icanspell.app
     exe_name: ICANSPELL-linux-x64
 
   macos:
-    app_name: ICANSPELL
+    app_name: Spellicious
     package_name: com.icanspell.app
     copyright_notice: The product copyright of the macos app
 
   web:
-    app_name: ICANSPELL
+    app_name: Spellicious
     description: The description of the web app and PWA
 
   windows:
-    app_name: ICANSPELL
+    app_name: Spellicious
     organization: DEVDEEN
     copyright_notice: The legal copyright of the windows app
     exe_name: ICANSPELL-win64
@@ -35,19 +35,7 @@ description: A new Flutter project.
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-# In Windows, build-name is used as the major, minor, and patch parts
-# of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 5.0.0+5
 
 environment:
   sdk: '>=2.19.0-264.0.dev <3.0.0'
@@ -81,6 +69,8 @@ dependencies:
   progress_loading_button: ^1.1.4
   share_plus: ^6.3.0
   shared_preferences: ^2.0.15
+  sign_in_with_apple: ^4.3.0
+  in_app_update: ^4.0.1
 
 dev_dependencies:
   flutter_launcher_icons: "^0.11.0"

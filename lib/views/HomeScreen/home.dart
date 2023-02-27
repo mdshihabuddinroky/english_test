@@ -1,13 +1,14 @@
-import 'dart:convert';
+import 'dart:io';
+
 import 'package:english_test/controller/category_controller.dart';
 import 'package:english_test/views/HomeScreen/widgets/HomeTab.dart';
 import 'package:english_test/views/HomeScreen/widgets/tabView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../Services/app_update.dart';
 import '../../widgets/drawer.dart';
 import 'widgets/homeSearch.dart';
-import 'package:pointycastle/pointycastle.dart';
 
 // Home is a stateful widget that displays a search bar, a tab bar, and a tab view
 class Home extends StatefulWidget {
@@ -40,6 +41,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   // Builds the user interface for the Home widget
   @override
   Widget build(BuildContext context) {
+    //`checkUpdate(context);
     // Gets the height and width of the display screen
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;

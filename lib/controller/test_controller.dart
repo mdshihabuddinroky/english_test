@@ -13,6 +13,8 @@ class TestController extends GetxController {
   var pageindex = 0.obs;
   var buttoncolor = {}.obs;
 
+  RxInt currentTest = 5768987.obs;
+
   TestController(this.category);
   @override
   void onInit() {

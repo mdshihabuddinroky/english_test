@@ -5,6 +5,7 @@ import 'package:english_test/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../controller/social_auth_controller.dart';
 import '../widgets/HeaderText.dart';
@@ -120,7 +121,25 @@ class Login extends StatelessWidget {
                         height: Get.width * 0.09,
                         width: Get.width * 0.09,
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      height: 40,
+                      width: 60,
+                      child: SignInWithAppleButton(
+                        iconAlignment: IconAlignment.center,
+                        borderRadius: BorderRadius.circular(100),
+                        style: SignInWithAppleButtonStyle.black,
+                        text: "",
+                        onPressed: () async {
+                          // Sign in with Google and register the user
+                          await authController.signInwithApple();
+                          if (authController.name.value != "") {
+                            controller.loginNow(
+                                authController.email.value, "null");
+                          }
+                        },
+                      ),
+                    ).paddingAll(10)
                   ],
                 ),
                 SizedBox(
