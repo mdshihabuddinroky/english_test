@@ -68,10 +68,10 @@ class TestScreen extends StatelessWidget {
                                 controller.buttoncolor["$index"] =
                                     Appcolor.primary;
                                 return Obx(() => Container(
-                                    color:
-                                        (controller.currentTest.value == index)
-                                            ? Color.fromARGB(65, 3, 168, 244)
-                                            : Colors.transparent,
+                                    color: (controller.currentTest.value ==
+                                            index)
+                                        ? const Color.fromARGB(65, 3, 168, 244)
+                                        : Colors.transparent,
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       mainAxisAlignment:
@@ -106,7 +106,7 @@ class TestScreen extends StatelessWidget {
                                         Obx(() => GestureDetector(
                                               // This widget was for check button that listens for a tap event and executes the code inside the onTap callback.
                                               onTap: (() async {
-                                                if (inputs[""] == null ||
+                                                if (inputs["$index"] == null ||
                                                     inputs["$index"] == "") {
                                                   // If the input field is empty, display a snackbar message asking the user to fill in the field.
                                                   Get.snackbar("Fill the box",
