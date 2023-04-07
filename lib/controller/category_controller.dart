@@ -68,14 +68,14 @@ class HomeController extends GetxController {
     }
 
     // Initialize variable to store category data
-    var categorylist;
+    List<HomeModel> categorylist = [];
     // Create an HTTP client
     var client = http.Client();
     // Make a GET request to the server with the specified category type
-    var response = await client.get(
-        Uri.parse('https://faster-english.com/spellapi/get.php?type="$type"'));
-
     try {
+      var response = await client.get(Uri.parse(
+          'https://faster-english.com/spellapi/get.php?type="$type"'));
+
       // If the server responds with a status code of 200
       if (response.statusCode == 200) {
         // Set isloading_word to false to indicate loading is complete

@@ -36,7 +36,7 @@ class RegisterController extends GetxController {
       if (response.statusCode == 200) {
         isloading(false);
         Get.offAll(() => const Home());
-        prefs.setBool('islogin', true);
+        prefs.setString('islogin', email);
         // If the server responds with a status code of 403, set isloading to false and show a snackbar with a "Failed" message and the text "This email is already registered".
       } else if (response.statusCode == 403) {
         isloading(false);

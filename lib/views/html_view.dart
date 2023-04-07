@@ -56,13 +56,13 @@ class SideBarView extends StatelessWidget {
 var html = {
   "Privacy Policy": """<p><strong>Privacy Policy</strong></p>
 
-<p>1 Absolute built the I Can Spell app as an Ad Supported app. This SERVICE is provided by 1 Absolute at no cost and is intended for use as is.</p>
+<p>1 Absolute built the Spellicious app as an Ad Supported app. This SERVICE is provided by 1 Absolute at no cost and is intended for use as is.</p>
 
 <p>This page is used to inform visitors regarding our policies regarding the collection, use, and disclosure of Personal Information if anyone decided to use our Service.</p>
 
 <p>If you choose to use our Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that we collect is used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.</p>
 
-<p>The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at I Can Spell unless otherwise defined in this Privacy Policy.</p>
+<p>The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Spellicious unless otherwise defined in this Privacy Policy.</p>
 
 <p><strong>Information Collection and Use</strong></p>
 
@@ -135,7 +135,7 @@ var html = {
 
 <p>&nbsp;</p>
 
-<p>The I Can Spell app stores and processes personal data that you have provided to us, to provide our Service. It&rsquo;s your responsibility to keep your phone and access to the app secure. We therefore recommend that you do not jailbreak or root your phone, which is the process of removing software restrictions and limitations imposed by the official operating system of your device. It could make your phone vulnerable to malware/viruses/malicious programs, compromise your phone&rsquo;s security features and it could mean that the I Can Spell app won&rsquo;t work properly or at all.</p>
+<p>The Spellicious app stores and processes personal data that you have provided to us, to provide our Service. It&rsquo;s your responsibility to keep your phone and access to the app secure. We therefore recommend that you do not jailbreak or root your phone, which is the process of removing software restrictions and limitations imposed by the official operating system of your device. It could make your phone vulnerable to malware/viruses/malicious programs, compromise your phone&rsquo;s security features and it could mean that the Spellicious app won&rsquo;t work properly or at all.</p>
 
 <p>The app does use third-party services that declare their Terms and Conditions.</p>
 
@@ -191,7 +191,7 @@ var html = {
 
 <p><a href="https://www.faster-english.com">www.faster-english.com</a></p>
 
-<p><a href="https://www.icanspell.com">www.icanspell.com</a></p>
+<p><a href="https://www.spellicious.com">www.spellicious.com</a></p>
 
 <p>&nbsp;</p>
 

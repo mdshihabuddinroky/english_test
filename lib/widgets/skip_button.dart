@@ -11,8 +11,8 @@ Widget skip() {
 // When the widget is tapped, execute the following code:
         final prefs = await SharedPreferences
             .getInstance(); // Get the shared preferences instance
-        prefs.setBool('islogin',
-            true); // Set the value of 'islogin' to 'true' in the shared preferences
+        prefs.setString('islogin',
+            "skip"); // Set the value of 'islogin' to 'true' in the shared preferences
         Get.offAll(() =>
             const Home()); // Use the Get library to navigate to the home page, dismissing all previous routes
       }),

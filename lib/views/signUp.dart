@@ -6,6 +6,8 @@
 
 // The progressLoadingButton widget has an onPressed callback that calls the validate method of the _formKey object and, if the form is valid, calls the registerNow method of the controller and passes it the name, email, and password as arguments. If the registerNow method returns successfully, the widget navigates to the Home view.
 
+import 'dart:io';
+
 import 'package:english_test/controller/register_controller.dart';
 import 'package:english_test/views/Login.dart';
 
@@ -14,7 +16,7 @@ import 'package:english_test/widgets/customButton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+//import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../controller/social_auth_controller.dart';
 import '../widgets/HeaderText.dart';
@@ -33,7 +35,7 @@ class SingUp extends StatelessWidget {
     SocialController authController = Get.put(SocialController());
     RegisterController controller = Get.put(RegisterController());
     // Create a GlobalKey for the form
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     // Create TextEditingController objects for the name, email, and password fields
     TextEditingController nameBox = TextEditingController();
     TextEditingController emailBox = TextEditingController();
@@ -59,7 +61,7 @@ class SingUp extends StatelessWidget {
                   ),
                   // Form widget allows for validation of the form
                   Form(
-                      key: _formKey,
+                      key: formKey,
                       child: Column(
                         children: [
                           // textBox widget displays a text field for the user to enter their name
@@ -98,68 +100,78 @@ class SingUp extends StatelessWidget {
                           left: Get.width * 0.10,
                           right: Get.width * 0.10,
                           bottom: Get.width * 0.07)),
-                  Text(
-                    "Sign up with social account",
-                    style: GoogleFonts.cabin(
-                        fontSize: Get.width * 0.04,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xff52C3D2)),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Facebook sign-in button
-                      GestureDetector(
-                        onTap: () async {
-                          // Sign in with Facebook and register the user
-                          await authController.signInWithFacebook();
-                          if (authController.name.value != "") {
-                            controller.registerNow(authController.name.value,
-                                authController.email.value, "null");
-                          }
-                        },
-                        child: Icon(
-                          Icons.facebook_rounded,
-                          color: Colors.blue,
-                          size: Get.width * 0.10,
-                        ).paddingAll(10),
-                      ),
-                      // Google sign-in button
-                      GestureDetector(
-                        onTap: () async {
-                          // Sign in with Google and register the user
-                          await authController.signInWithGoogle();
-                          if (authController.name.value != "") {
-                            controller.registerNow(authController.name.value,
-                                authController.email.value, "null");
-                          }
-                        },
-                        child: Image.asset(
-                          'assets/google.png',
-                          height: Get.width * 0.09,
-                          width: Get.width * 0.09,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 40,
-                        width: 60,
-                        child: SignInWithAppleButton(
-                          iconAlignment: IconAlignment.center,
-                          borderRadius: BorderRadius.circular(100),
-                          style: SignInWithAppleButtonStyle.black,
-                          text: "",
-                          onPressed: () async {
-                            // Sign in with Google and register the user
-                            await authController.signInwithApple();
-                            if (authController.name.value != "") {
-                              controller.registerNow(authController.name.value,
-                                  authController.email.value, "null");
-                            }
-                          },
-                        ),
-                      ).paddingAll(10)
-                    ],
-                  ),
+                  (!Platform.isIOS)
+                      ? Text(
+                          "Sign up with social account",
+                          style: GoogleFonts.cabin(
+                              fontSize: Get.width * 0.04,
+                              fontWeight: FontWeight.bold,
+                              color: const Color(0xff52C3D2)),
+                        )
+                      : const SizedBox(),
+                  (!Platform.isIOS)
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Facebook sign-in button
+                            GestureDetector(
+                              onTap: () async {
+                                // Sign in with Facebook and register the user
+                                await authController.signInWithFacebook();
+                                if (authController.name.value != "") {
+                                  controller.registerNow(
+                                      authController.name.value,
+                                      authController.email.value,
+                                      "null");
+                                }
+                              },
+                              child: Icon(
+                                Icons.facebook_rounded,
+                                color: Colors.blue,
+                                size: Get.width * 0.10,
+                              ).paddingAll(10),
+                            ),
+                            // Google sign-in button
+                            GestureDetector(
+                              onTap: () async {
+                                // Sign in with Google and register the user
+                                await authController.signInWithGoogle();
+                                if (authController.name.value != "") {
+                                  controller.registerNow(
+                                      authController.name.value,
+                                      authController.email.value,
+                                      "null");
+                                }
+                              },
+                              child: Image.asset(
+                                'assets/google.png',
+                                height: Get.width * 0.09,
+                                width: Get.width * 0.09,
+                              ),
+                            ),
+                            // SizedBox(
+                            //   height: 40,
+                            //   width: 60,
+                            //   child: SignInWithAppleButton(
+                            //     iconAlignment: IconAlignment.center,
+                            //     borderRadius: BorderRadius.circular(100),
+                            //     style: SignInWithAppleButtonStyle.black,
+                            //     text: "",
+                            //     onPressed: () async {
+                            //       // Sign in with Google and register the user
+                            //       await authController.signInwithApple();
+                            //       if (authController.name.value != "") {
+                            //         controller.registerNow(
+                            //             authController.name.value,
+                            //             authController.email.value,
+                            //             "null");
+                            //       }
+                            //     },
+                            //   ),
+                            // ).paddingAll(10)
+                          ],
+                        )
+                      : const SizedBox(),
                   SizedBox(
                     height: Get.width * 0.05,
                   ),
@@ -167,7 +179,7 @@ class SingUp extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       // Validate form and register user
-                      if (_formKey.currentState!.validate() == true) {
+                      if (formKey.currentState!.validate() == true) {
                         controller.registerNow(
                             nameBox.text, emailBox.text, passwordBox.text);
                       }
@@ -175,7 +187,7 @@ class SingUp extends StatelessWidget {
                     child: customButton("Register Now"),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   GestureDetector(

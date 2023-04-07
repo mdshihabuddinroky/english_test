@@ -20,6 +20,7 @@ Widget textBox(String name, TextEditingController controller) {
         } else {
           null; // Otherwise, return null
         }
+        return null;
       },
       controller:
           controller, // Set the controller of the TextFormField to the given controller

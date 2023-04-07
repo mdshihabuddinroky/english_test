@@ -6,45 +6,36 @@
 
 // If the server responds with a status code of 200, the method sets the isloading variable to false, parses the response body as a list of TestModel objects, and stores the list in the searchlist observable list. If the server responds with any other status code or if an exception is thrown, the method does not do anything.
 */
-import 'package:english_test/model/test_model.dart';
 import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SearchControllers extends GetxController {
-// observable list to store search results
-  var searchlist = <TestModel>[].obs;
+import '../views/signUp.dart';
 
-// page index
-  var page = 1.obs;
-// boolean variable to track loading status
+class DeleteAccountController extends GetxController {
   var isloading = false.obs;
-// page index
-  var pageindex = 0.obs;
 
 // method to fetch search results from server
-  fetchProducts(String querry) async {
+  deleteUser(String email) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 // set loading status to true
     isloading(true);
+    print("hello:$email");
 
 // create an HTTP client
     var client = http.Client();
 
 // make a GET request to the server with the search query in the URL
     var response = await client.get(Uri.parse(
-        "https://faster-english.com/spellapi/search.php?search=%27$querry%27"));
-
+        "https://www.faster-english.com/spellapi/delete.php?email=%22$email%22"));
+    print("Satus code: ${response.statusCode}");
+    print("body: ${response.body}");
     try {
-      // if the server responds with a status code of 200
       if (response.statusCode == 200) {
-        // set loading status to false
         isloading(false);
-        // parse the response body as a list of TestModel objects
-        var testList = testModelFromJson(response.body);
-
-        // clear the searchlist and store the returned list in it
-        searchlist.clear();
-        searchlist.value = testList;
+        prefs.clear();
+        Get.offAll(() => const SingUp());
       } else {
         //  Get.to(const NoInternet());
       }

@@ -1,9 +1,9 @@
-import 'package:english_test/controller/searchController.dart';
 import 'package:english_test/views/testScreen/test.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../controller/searchController.dart';
 import '../widgets/no_data.dart';
 
 class SearchPage extends StatelessWidget {
@@ -14,7 +14,7 @@ class SearchPage extends StatelessWidget {
     // Create a TextEditingController for the search field
     final TextEditingController txtcontroller = TextEditingController();
     // Create a SearchController and register it in the dependency injection system
-    final SearchController controller = Get.put(SearchController());
+    final SearchControllers controller = Get.put(SearchControllers());
 
     return Scaffold(
         appBar: AppBar(

@@ -11,8 +11,7 @@ void checkUpdate(BuildContext context) async {
   InAppUpdate.checkForUpdate().then((info) {
     info.updateAvailability == UpdateAvailability.updateAvailable
         ? () {
-            InAppUpdate.performImmediateUpdate()
-                .catchError((e) => Get.snackbar("Error", e.toString()));
+            InAppUpdate.performImmediateUpdate();
           }
         : print("Not available");
   }).catchError((e) {

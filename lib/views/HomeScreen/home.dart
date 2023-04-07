@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:english_test/controller/category_controller.dart';
 import 'package:english_test/views/HomeScreen/widgets/HomeTab.dart';
 import 'package:english_test/views/HomeScreen/widgets/tabView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../Services/app_update.dart';
 import '../../widgets/drawer.dart';
 import 'widgets/homeSearch.dart';
 
@@ -53,7 +50,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return Scaffold(
       key: _key,
       backgroundColor: Colors.white,
-      drawer: customDrawer(),
+      drawer: const customDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
@@ -69,7 +66,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   SizedBox(
                     width: Get.width * 0.10,
                   ),
-                  Text("I CAN SPELL",
+                  Text("Spellicious",
                       style: GoogleFonts.poppins(
                           fontSize: 22, color: Colors.black))
                 ],

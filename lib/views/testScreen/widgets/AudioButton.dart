@@ -40,7 +40,9 @@ class AudioPlay extends StatelessWidget {
             current(
                 index); // Set the current index to the index passed to this widget
             status(true); // Set the status to true
-            await player.play(UrlSource(currentAudio));
+            player.play(UrlSource(currentAudio));
+
+            print(currentAudio);
           }
         },
         icon: Obx(

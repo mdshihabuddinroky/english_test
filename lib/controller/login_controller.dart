@@ -10,8 +10,6 @@
 import 'package:get/get.dart';
 // ignore_for_file: avoid_print
 
-import 'package:bcrypt/bcrypt.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,7 +40,7 @@ class LoginController extends GetxController {
       // if the server responds with a status code of 200
       if (response.statusCode == 200) {
         // set the islogin flag in SharedPreferences to true
-        prefs.setBool('islogin', true);
+        prefs.setString('islogin', email);
         // set the isloading variable to false
         isloading(false);
         // navigate to the Home view
